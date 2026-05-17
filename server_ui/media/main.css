@@ -227,6 +227,7 @@ h4 {
   min-height: 1.65rem;
   line-height: 1;
   padding: 0.3rem 0.75rem;
+  margin: 0 !important;
   margin-left: 0.4rem;
   vertical-align: middle;
 }
