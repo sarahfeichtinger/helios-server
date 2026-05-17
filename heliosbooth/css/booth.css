@@ -80,10 +80,10 @@ body {
 }
 
 #progress_div td.selected {
-  background: #f6e8e8;
-  color: #7f1e1e;
+  background: #e9edf2;
+  color: #1f2328;
   font-weight: 700;
-  border: 1px solid #c89494;
+  border: 1px solid #b8c3d0;
 }
 
 #footer {
@@ -96,9 +96,9 @@ body {
 }
 
 #page h2 {
-  background: #f5e7e7;
-  border: 1px solid #e9c6c6;
-  border-left: 4px solid #b53a3a;
+  background: #f1f4f7;
+  border: 1px solid #d7dde5;
+  border-left: 4px solid #1f2328;
   border-radius: 0.45rem;
   padding: 0.45rem 0.6rem;
 }

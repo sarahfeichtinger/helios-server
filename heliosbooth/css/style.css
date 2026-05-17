@@ -43,8 +43,8 @@ body {
 }
 
 .selected {
-    background: #f6e8e8;
-    border: 1px solid #e0b8b8;
+    background: #e9edf2;
+    border: 1px solid #c7d0db;
     border-radius: 0.45rem;
     display: inline-block;
 }
@@ -115,7 +115,7 @@ h3 {
     font-size: 1.12rem;
     border-bottom: 1px solid #d7dde5;
     background: #fff;
-    border-left: 3px solid #b53a3a;
+    border-left: 3px solid #1f2328;
 }
 
 #navigation {

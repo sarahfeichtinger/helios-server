@@ -28,9 +28,9 @@ form.prettyform input, form.prettyform textarea {
 }
 
 button {
-    background: #b53a3a;
+    background: #1f2328;
     color: #fff;
-    border: 1px solid #9f3030;
+    border: 1px solid #111418;
     border-radius: 0.5rem;
     margin: 5px;
     padding: 0.45rem 1rem;
@@ -39,18 +39,18 @@ button {
 
 input.pretty {
     font-size: 1rem;
-    border: 1px solid #9f3030;
+    border: 1px solid #111418;
     border-radius: 0.5rem;
-    background: #b53a3a;
+    background: #1f2328;
     color: #fff;
     padding: 0.45rem 0.85rem;
 }
 
 input.prettysmall {
     font-size: 0.9rem;
-    border: 1px solid #9f3030;
+    border: 1px solid #111418;
     border-radius: 0.5rem;
-    background: #b53a3a;
+    background: #1f2328;
     color: #fff;
     padding: 0.35rem 0.7rem;
 }
@@ -78,7 +78,7 @@ table.pretty th, td {
 }
 
 div.selected {
-    background: #f6e8e8;
-    border: 1px solid #e0b8b8;
+    background: #e9edf2;
+    border: 1px solid #c7d0db;
     border-radius: 0.45rem;
 }
