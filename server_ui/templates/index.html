@@ -32,7 +32,7 @@ More than <b>2,000,000 votes</b> have been cast using Helios.
 {% endif %}
 
   {% else %}
-  <p style="font-size: 1.4em;">
+  <p class="welcome-message">
     {{settings.WELCOME_MESSAGE|safe}}
   </p>
   
@@ -46,7 +46,7 @@ More than <b>2,000,000 votes</b> have been cast using Helios.
     {% endfor %}
   </p>
   {% else %}
-  <h4>no featured elections at the moment</h4>
+  <h4 class="no-featured-message">no featured elections at the moment</h4>
   {% endif %}
 {% endif %}
   

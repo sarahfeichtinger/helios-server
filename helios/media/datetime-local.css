@@ -1,21 +1,34 @@
 /* Helios DateTime Picker Styles */
 
 .helios-datetime-input {
-    padding: 8px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 250px;
+    padding: 0.5rem 0.7rem;
+    font-size: 0.95rem;
+    border: 1px solid #d7dde5;
+    border-radius: 0.6rem;
+    width: 100%;
+    max-width: 280px;
     box-sizing: border-box;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .helios-datetime-input:focus {
-    border-color: #4CAF50;
+    border-color: #a8b8cd;
     outline: none;
-    box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+    box-shadow: 0 0 0 3px rgba(31, 35, 40, 0.16);
 }
 
 .helios-datetime-input:hover {
-    border-color: #999;
+    border-color: #b8c3d0;
+}
+
+.helios-datetime-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    flex-wrap: wrap;
+}
+
+.helios-datetime-sep {
+    color: #616974;
+    font-size: 0.86rem;
 }

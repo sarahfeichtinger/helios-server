@@ -229,25 +229,76 @@ class DateTimeLocalWidget(Widget):
 
     def __init__(self, attrs=None):
         super(DateTimeLocalWidget, self).__init__(attrs)
-        # Set default attributes
-        self.attrs['type'] = 'datetime-local'
         self.attrs.setdefault('class', 'helios-datetime-input')
         self.attrs.setdefault('placeholder', 'YYYY-MM-DDTHH:MM')
 
     def render(self, name, value, attrs=None, renderer=None):
-        if value is None:
-            value = ''
-        elif hasattr(value, 'strftime'):
-            # Convert datetime to the format expected by datetime-local input
-            # Format: YYYY-MM-DDTHH:MM
-            value = value.strftime('%Y-%m-%dT%H:%M')
+        date_value = ''
+        time_value = ''
 
-        # Merge self.attrs with provided attrs and extra attributes
-        final_attrs = {**self.attrs, **(attrs or {}), 'name': name, 'type': 'datetime-local'}
-        if value != '':
-            final_attrs['value'] = value
+        if value:
+            if hasattr(value, 'strftime'):
+                date_value = value.strftime('%Y-%m-%d')
+                time_value = value.strftime('%H:%M')
+            elif isinstance(value, str):
+                value = value.strip()
+                if 'T' in value:
+                    parts = value.split('T', 1)
+                    date_value = parts[0]
+                    time_value = parts[1][:5] if len(parts) > 1 else ''
+                elif ' ' in value:
+                    parts = value.split(' ', 1)
+                    date_value = parts[0]
+                    time_value = parts[1][:5] if len(parts) > 1 else ''
+                else:
+                    date_value = value
 
-        return mark_safe('<input%s />' % flatatt(final_attrs))
+        base_attrs = {**self.attrs, **(attrs or {})}
+        input_id = base_attrs.get('id', 'id_%s' % name)
+
+        date_attrs = {
+            **base_attrs,
+            'id': '%s_date' % input_id,
+            'name': '%s_date' % name,
+            'type': 'date',
+            'value': date_value
+        }
+
+        time_attrs = {
+            **base_attrs,
+            'id': '%s_time' % input_id,
+            'name': '%s_time' % name,
+            'type': 'time',
+            'step': '60',
+            'value': time_value
+        }
+
+        # datetime-local is inconsistent in Firefox; split controls are reliable across browsers.
+        html = (
+            '<div class="helios-datetime-row">'
+            '<input%s />'
+            '<span class="helios-datetime-sep" aria-hidden="true">at</span>'
+            '<input%s />'
+            '</div>'
+        ) % (flatatt(date_attrs), flatatt(time_attrs))
+
+        return mark_safe(html)
 
     def value_from_datadict(self, data, files, name):
-        return data.get(name, None)
+        value = data.get(name, None)
+        if value:
+            return value
+
+        date_value = data.get('%s_date' % name, '').strip()
+        time_value = data.get('%s_time' % name, '').strip()
+
+        if not date_value and not time_value:
+            return None
+
+        if date_value and not time_value:
+            time_value = '00:00'
+
+        if date_value and time_value:
+            return '%sT%s' % (date_value, time_value)
+
+        return None

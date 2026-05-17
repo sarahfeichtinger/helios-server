@@ -96,7 +96,7 @@ input[type="button"] {
   background: var(--helios-accent) !important;
   border: 1px solid transparent !important;
   color: #fff !important;
-  border-radius: 9999px;
+  border-radius: 0.6rem;
   padding: 0.5rem 1rem;
   box-shadow: none !important;
   background-image: none !important;
@@ -182,6 +182,29 @@ h4 {
   margin-top: 0;
 }
 
+.welcome-message,
+.no-featured-message {
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  color: #2a2f36;
+  line-height: 1.45;
+}
+
+.welcome-message {
+  font-size: 1.22rem;
+  font-weight: 400;
+  margin: 0 0 0.9rem 0;
+}
+
+.no-featured-message {
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 0.3rem 0 0;
+}
+
+#mystuff h5.subheader {
+  margin: 0.35rem 0 0.6rem;
+}
+
 #footer {
   display: flex;
   align-items: center;
@@ -193,4 +216,17 @@ h4 {
 
 #footer br {
   display: none;
+}
+
+#footer .button,
+#footer .small.button,
+#footer .tiny.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 1.65rem;
+  line-height: 1;
+  padding: 0.3rem 0.75rem;
+  margin-left: 0.4rem;
+  vertical-align: middle;
 }
