@@ -1,9 +1,15 @@
+html {
+  min-height: 100%;
+  background: #f2f4f7;
+}
+
 body {
   font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   background: linear-gradient(180deg, #fafbfc 0%, #f2f4f7 100%);
   color: #2a2f36;
   margin: 0;
   padding: 0;
+  min-height: 100vh;
 }
 
 #content {
@@ -81,5 +87,35 @@ table.pretty tr td {
 
 table.pretty th {
   background: #f4f6f9;
+}
+
+.button,
+button,
+input[type="submit"],
+input[type="button"] {
+  background: #1f2328 !important;
+  border: 1px solid transparent !important;
+  color: #fff !important;
+  border-radius: 9999px;
+  padding: 0.5rem 1rem;
+  text-decoration: none !important;
+  box-shadow: none !important;
+  background-image: none !important;
+}
+
+.button:hover,
+button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover {
+  background: #111418 !important;
+  color: #fff !important;
+}
+
+.button:focus,
+button:focus,
+input[type="submit"]:focus,
+input[type="button"]:focus {
+  box-shadow: 0 0 0 3px rgba(31, 35, 40, 0.2) !important;
+  outline: 0;
 }
 
