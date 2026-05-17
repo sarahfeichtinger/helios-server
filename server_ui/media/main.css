@@ -107,12 +107,12 @@ a:hover {
 button,
 input[type="submit"],
 input[type="button"] {
-  background: var(--helios-red);
-  border: 1px solid #9f3030;
-  color: #fff;
+  background: var(--helios-red) !important;
+  border: 1px solid #9f3030 !important;
+  color: #fff !important;
   border-radius: 0.5rem;
   padding: 0.45rem 0.9rem;
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 .button:hover,
@@ -120,8 +120,35 @@ input[type="button"] {
 button:hover,
 input[type="submit"]:hover,
 input[type="button"]:hover {
-  background: #9d3131;
-  color: #fff;
+  background: #9d3131 !important;
+  color: #fff !important;
+}
+
+a.button,
+a.small.button,
+a.tiny.button,
+a.button:visited,
+a.small.button:visited,
+a.tiny.button:visited {
+  color: #fff !important;
+}
+
+.design-test-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.9rem;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid #d89f9f;
+  border-left: 6px solid var(--helios-red);
+  border-radius: 0.6rem;
+  background: #f6e8e8;
+  color: #5e1f1f;
+  font-size: 0.95rem;
+}
+
+.design-test-banner strong {
+  font-size: 1rem;
 }
 
 input,
