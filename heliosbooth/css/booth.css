@@ -1,6 +1,7 @@
 body {
-  font-family: sans-serif;
-  background: white;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  background: linear-gradient(180deg, #fafbfc 0%, #f2f4f7 100%);
+  color: #2a2f36;
   padding: 0;
   margin: 0;
 }
@@ -8,54 +9,61 @@ body {
 #wrapper {
   padding: 0;
   background: #ffffff;
-  border: 1px solid #666;
-  margin: 20px auto;
-  max-width: 1000px;
+  border: 1px solid #d7dde5;
+  border-radius: 0.9rem;
+  box-shadow: 0 10px 30px rgba(28, 36, 48, 0.08);
+  margin: 1rem auto;
+  max-width: 1040px;
+  overflow: hidden;
 }
 
 @media screen and (max-width: 1000px) {
   #wrapper {
     margin: 0;
+    border-radius: 0;
+    border-left: 0;
+    border-right: 0;
   }
 }
 
 #content {
-  padding: 20px;
+  padding: 1.1rem;
 }
 
 #header {
-  padding-top: 0;
   text-align: center;
-  padding-bottom: 5px;
+  padding-bottom: 0.45rem;
 }
 
 #header h1 {
-  font-size: 28pt;
+  font-size: clamp(1.6rem, 2.7vw, 2.3rem);
   padding: 0;
   margin: 0;
-  line-height: 120%;
+  line-height: 1.2;
 }
 
 #header h2 {
-  font-size: 20pt;
+  font-size: clamp(1.2rem, 2.1vw, 1.55rem);
   padding: 0;
   margin: 0;
-  line-height: 100%;
+  line-height: 1.2;
 }
 
 .edge {
   width: 100%;
   display: flex;
-  padding: 5px 0;
+  padding: 0.55rem 0;
   text-align: center;
-  background: #ccc;
-  font-size: 18pt;
+  background: #f4f6f9;
+  border-bottom: 1px solid #d7dde5;
+  font-size: 1.35rem;
+  color: #20262d;
 }
 
 #progress_div {
   margin: auto;
-  max-width: 500px;
-  font-size: 14pt;
+  max-width: 560px;
+  font-size: 1rem;
 }
 
 #progress_div table {
@@ -66,39 +74,49 @@ body {
 }
 
 #progress_div td.unselected {
-  background: #ccc;
-  color: #888;
-  border: 1px solid #333;
+  background: #eceff3;
+  color: #77808c;
+  border: 1px solid #cfd6df;
 }
 
 #progress_div td.selected {
-  background: #fc9;
-  color: black;
-  font-weight: bold;
-  border: 1px solid black;
+  background: #f6e8e8;
+  color: #7f1e1e;
+  font-weight: 700;
+  border: 1px solid #c89494;
 }
 
 #footer {
-  font-size: 12pt;
-  word-break: break-all;
+  font-size: 0.95rem;
+  word-break: break-word;
+  border-top: 1px solid #e3e8ef;
+  margin-top: 0.9rem;
+  padding-top: 0.75rem;
+  color: #5f6874;
 }
 
 #page h2 {
-  background: #fc9;
-  border-bottom: 1px solid #f90;
-  padding: 5px 0 2px 5px;
+  background: #f5e7e7;
+  border: 1px solid #e9c6c6;
+  border-left: 4px solid #b53a3a;
+  border-radius: 0.45rem;
+  padding: 0.45rem 0.6rem;
 }
 
 h3 {
-	font-size: 1.6em;
+  font-size: 1.35rem;
 }
 
 #election_info {
-  font-size: 16pt;
+  font-size: 1.15rem;
 }
 
 #election_hash {
-  font-family: monospace;
+  font-family: Consolas, "Courier New", monospace;
+  background: #f4f6f9;
+  border: 1px solid #e3e8ef;
+  border-radius: 0.4rem;
+  padding: 0.35rem 0.5rem;
 }
 
 #loading_div {
