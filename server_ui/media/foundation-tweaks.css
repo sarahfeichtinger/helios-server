@@ -43,13 +43,14 @@ table.pretty th {
 #footer {
   width: 100%;
   border-top: 1px solid #d7dde5;
-  padding: 0.6rem 1rem;
+  padding: 0.35rem 1rem;
   background: #f0f2f5;
   color: #4b545f;
 }
 
 .push {
-  height: 2.5em;
+  display: none;
+  height: 0;
 }
 
 select {

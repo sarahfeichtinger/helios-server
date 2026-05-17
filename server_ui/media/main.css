@@ -55,6 +55,17 @@ a:hover {
   border-radius: 0.45rem;
 }
 
+#mystuff .panel.row {
+  margin-left: 0;
+  margin-right: 0;
+  padding: 0.9rem;
+}
+
+#mystuff .row.right {
+  margin-left: 0;
+  margin-right: 0;
+}
+
 .top-bar {
   background: #14171c;
   border-bottom: 1px solid #0f1115;
@@ -126,10 +137,33 @@ input,
 select,
 textarea {
   border: 1px solid var(--helios-border);
-  border-radius: 0.45rem;
-  padding: 0.45rem 0.6rem;
+  border-radius: 0.6rem;
+  padding: 0.5rem 0.7rem;
   background: #fff;
   color: var(--helios-text);
+  box-shadow: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="number"],
+input[type="url"],
+input[type="search"],
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="tel"],
+textarea,
+select {
+  border-radius: 0.6rem !important;
+  min-height: 2.35rem;
+}
+
+textarea {
+  min-height: 6rem;
+  resize: vertical;
 }
 
 input:focus,
@@ -146,4 +180,17 @@ h3,
 h4 {
   color: #1f2328;
   margin-top: 0;
+}
+
+#footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.2rem;
+  padding: 0.35rem 1rem;
+  line-height: 1.25;
+}
+
+#footer br {
+  display: none;
 }
