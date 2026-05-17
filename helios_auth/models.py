@@ -177,7 +177,8 @@ class User(models.Model):
     else:
       name_display = self.pretty_name
 
-    return "%s" % name_display
+    return """<img class="%s-logo" src="/static/auth/login-icons/%s.png" alt="%s" /> %s""" % (
+      size, self.user_type, self.user_type, name_display)
 
   @property
   def display_html_small(self):
