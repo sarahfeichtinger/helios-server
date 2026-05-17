@@ -85,27 +85,24 @@
   </div>
 
   <div class="footer" id="footer">
-<!--    <span style="float:right;">
-      {% if settings.FOOTER_LOGO_URL %}
-      <img src="{{settings.FOOTER_LOGO_URL}}" />
+    <div class="footer-inner">
+      {% if user %}
+        <span class="footer-text">logged in as <b>{{user.display_html_small|safe}}</b></span>
+        <a class="tiny button" href="{% url "auth@logout" %}?return_url={{CURRENT_URL}}">logout</a>
+      {% else %}
+        {% if voter %}
+          <span class="footer-text">You are signed in as voter <u>{% if voter.alias %}{{voter.alias}}{% else %}{{voter.name}}{% endif %}</u> in election <u>{{voter.election.name}}</u>.</span>
+          <a class="tiny button" href="{{settings.SECURE_URL_HOST}}{% url "auth@logout" %}?return_url={{CURRENT_URL}}">sign out</a>
+        {% else %}
+          {% if settings.SHOW_LOGIN_OPTIONS %}
+            <span class="footer-text">not logged in.</span> <a class="tiny button" href="{{settings.SECURE_URL_HOST}}{% url "auth@index" %}?return_url={{CURRENT_URL}}">log in</a>
+          {% else %}
+            <span class="footer-text">powered by</span> <a href="http://heliosvoting.org">Helios Voting</a>.
+          {% endif %}
+        {% endif %}
       {% endif %}
-    </span>-->
-    {% if user %}
-    logged in as <b>{{user.display_html_small|safe}}</b>&nbsp;&nbsp;
-    <a class="tiny button" href="{% url "auth@logout" %}?return_url={{CURRENT_URL}}">logout</a><br />
-    {% else %}
-    {% if voter %}
-    You are signed in as voter <u>{% if voter.alias %}{{voter.alias}}{% else %}{{voter.name}}{% endif %}</u> in election <u>{{voter.election.name}}</u>. [<a href="{{settings.SECURE_URL_HOST}}{% url "auth@logout" %}?return_url={{CURRENT_URL}}">sign out</a>]
-    {% else %}
-{% if settings.SHOW_LOGIN_OPTIONS %}
-    not logged in. <a class="tiny button" href="{{settings.SECURE_URL_HOST}}{% url "auth@index" %}?return_url={{CURRENT_URL}}">log in</a>
-{% else %}
-powered by <a href="http://heliosvoting.org">Helios Voting</a>.
-{% endif %}
-    {% endif %}
-    {% endif %}
-      <br clear="right" />
     </div>
+  </div>
   
   </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

@@ -31,4 +31,14 @@
 .helios-datetime-sep {
     color: #616974;
     font-size: 0.86rem;
+    background: #fff;
+    border: 1px solid #d7dde5;
+    padding: 0.45rem 0.6rem;
+    border-radius: 0.6rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 3.2rem;
+    height: 2.35rem;
+    box-sizing: border-box;
 }
