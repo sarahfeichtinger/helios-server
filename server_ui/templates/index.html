@@ -10,7 +10,7 @@
 <div class="row"><div class="large-5 columns large-centered"><a href="/"><img border="0" src="{{ settings.MAIN_LOGO_URL }}" /></a></div></div>
 <div class="row">&nbsp;</div>
 <div class="large-9 columns">
-
+  {% if settings.MASTER_HELIOS %}
 <p>Helios offers <b>verifiable online elections</b>.</p>
 
 <p>We believe democracy is important, whether it’s your book club, parent-teacher association, student government, workers’ union, or state. So we’ve made truly verifiable elections as easy as everything else on the Web.</p>
@@ -23,13 +23,12 @@ Helios elections are:
 <li><b>proven</b>: Helios is open-source, vetted by top-tier experts, and in use by major organizations.</li>
 </ul>
 
+<p>
+More than <b>2,000,000 votes</b> have been cast using Helios.
+</p>
 
 {% if create_p %}
-<div class="row" style="margin-bottom: 1.5rem;">
-  <div class="right">
-    <a class="button" href="{% url "elections@new" %}">create an election</a>
-  </div>
-</div>
+<a class="button" href="{% url "elections@new" %}">create an election</a>
 {% endif %}
 
   {% else %}
