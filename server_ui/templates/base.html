@@ -87,8 +87,8 @@
   <div class="footer" id="footer">
     <div class="footer-inner">
       {% if user %}
-        <span class="footer-text">logged in as <b>{{user.display_html_small|safe}}</b></span>
-        <a class="tiny button" href="{% url "auth@logout" %}?return_url={{CURRENT_URL}}">logout</a>
+        <span class="footer-text">logged in as&nbsp;<b>{{user.display_html_small|safe}}</b></span>
+        <a class="tiny button" style="margin-left: 0.75rem;" href="{% url "auth@logout" %}?return_url={{CURRENT_URL}}">logout</a>
       {% else %}
         {% if voter %}
           <span class="footer-text">You are signed in as voter <u>{% if voter.alias %}{{voter.alias}}{% else %}{{voter.name}}{% endif %}</u> in election <u>{{voter.election.name}}</u>.</span>

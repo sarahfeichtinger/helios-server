@@ -13,7 +13,7 @@ Question #{$T.question$index + 1}: {$T.question.short_name}<br>
 {#if $T.choices[$T.question$index].length < $T.question.max}
 [{$T.choices[$T.question$index].length} selections out of possible {$T.question.min}-{$T.question.max}]<br />
 {#/if}
-[<a onclick="BOOTH.show_question({$T.question$index}); return false;" href="#">change</a>]
+<a class="booth-inline-action" onclick="BOOTH.show_question({$T.question$index}); return false;" href="#">change</a>
 {#if !$T.question$last}<br><br>{#/if}
 {#/for}
 </div>
@@ -35,7 +35,7 @@ Question #{$T.question$index + 1}: {$T.question.short_name}<br>
 
 {#if $T.election_metadata.use_advanced_audit_features}
 <div style="background: lightyellow; padding: 10px; border: 1px solid #ddd; max-width: 340px;">
-<h4 style="padding: 0px; margin:0px;"><a onclick="$('#auditbody').slideToggle(250);" href="#">Spoil & Audit</a> <span style="font-size: 0.8em; color: #444">[optional]</span></h4>
+<h4 style="padding: 0px; margin:0px;"><a class="booth-pill" onclick="$('#auditbody').slideToggle(250);" href="#">Spoil & Audit</a> <span style="font-size: 0.8em; color: #444">[optional]</span></h4>
 <div id="auditbody" style="display:none;">
 <p>
 If you choose, you can spoil this ballot and reveal how your choices were encrypted. This is an optional auditing process.
