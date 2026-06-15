@@ -1,10 +1,91 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" /> 
-  <title>Helios Voting System -- Verifier</title>
-  <link rel="stylesheet" type="text/css" href="css/booth.css" />
-  <link rel="stylesheet" type="text/css" href="css/forms.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Helios Election Verifier</title>
+  
+  <link rel="stylesheet" href="../static/foundation/css/foundation.css?v=20260517g">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="../static/foundation-tweaks.css?v=20260517g">
+  <link rel="stylesheet" href="../static/main.css?v=20260517g">
+  
+  <style>
+    .verifier-container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    
+    .verifier-card {
+      background: #f5f5f5;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 2rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .results-output {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 1.5rem;
+      margin-top: 2rem;
+      min-height: 200px;
+      max-height: 600px;
+      overflow-y: auto;
+      font-family: monospace;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+    
+    .result-line {
+      padding: 0.25rem 0;
+    }
+    
+    .result-verified {
+      color: #28a745;
+      font-weight: bold;
+    }
+    
+    .result-failed {
+      color: #dc3545;
+      font-weight: bold;
+    }
+    
+    .result-heading {
+      color: #0c5460;
+      font-weight: bold;
+      margin-top: 1rem;
+      font-size: 1.1em;
+    }
+    
+    .loading-spinner {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+    }
+    
+    .loading-spinner.active {
+      display: block;
+    }
+    
+    .election-url-input {
+      width: 100%;
+      padding: 0.75rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+    }
+    
+    .btn-verify {
+      width: 100%;
+      padding: 0.75rem;
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+  </style>
   <script language="javascript" src="js/jscrypto/jsbn.js"></script>
   <script language="javascript" src="js/jscrypto/jsbn2.js"></script>
   <script language="javascript" src="js/jscrypto/sjcl.js"></script>
@@ -38,7 +119,28 @@ $(document).ready(function() {
 });    
 
 function result_append(str) {
-    $('#results').append(str).append("<br />");
+    let resultDiv = $('#results');
+    let lineDiv = $('<div class="result-line"></div>');
+    
+    // Check if this is a heading (h3 tag)
+    if (str.includes('<h3>')) {
+        lineDiv.html(str.replace('<h3>', '<div class="result-heading">').replace('</h3>', '</div>'));
+    }
+    // Check for VERIFIED or FAIL results
+    else if (str.includes('VERIFIED') && !str.includes('PROBLEM')) {
+        lineDiv.html(str.replace('VERIFIED', '<span class="result-verified">VERIFIED</span>'));
+    }
+    else if (str.includes('FAIL') || str.includes('ERROR') || str.includes('PROBLEM')) {
+        lineDiv.html(str.replace(/FAIL|ERROR|PROBLEM/g, function(match) {
+            return '<span class="result-failed">' + match + '</span>';
+        }));
+    }
+    else {
+        lineDiv.text(str);
+    }
+    
+    resultDiv.append(lineDiv).append('<br>');
+    resultDiv.scrollTop(resultDiv[0].scrollHeight); // Auto-scroll to bottom
 }
 
 function pretty_result(result) {return result? "VERIFIED" : "FAIL";}
@@ -260,30 +362,67 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-<div id="wrapper">
-<div id="banner">
-    Helios Election Verifier
-</div>
-<div id="content">
+  <div class="wrapper">
+    <!-- Navigation Bar -->
+    <nav class="top-bar">
+      <ul class="title-area">
+        <li class="name">
+          <h1><a href="/"><img src="../static/tinylogo.png" alt="Helios"></a></h1>
+        </li>
+        <li class="toggle-topbar menu-icon"><a href="#" onclick="$('nav').toggleClass('expanded'); return false;"><span>Menu</span></a></li>
+      </ul>
+      <section class="top-bar-section">
+        <ul class="right">
+          <li><a href="/">Back to Home</a></li>
+        </ul>
+        <ul>
+          <li><a href="/">Helios Voting</a></li>
+        </ul>
+      </section>
+    </nav>
 
-<div id="verifier_loading">
-loading verifier ...
-</div>
+    <!-- Main Content -->
+    <div class="verifier-container">
+      <div class="verifier-card">
+        <h2 class="text-center mb-4">Election Verifier</h2>
+        
+        <div id="verifier_loading" class="loading-spinner active">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <p class="mt-3">Initializing verifier...</p>
+        </div>
 
-<div id="verifier" align="center" style="display:none;">
-Enter the Election URL:
-<form onsubmit="try{load_election_and_ballots(this.election_url.value);} catch (e) {} return false;">
-    <input type="text" size="50" name="election_url" id="election_url" /><br />
-    <input type="submit" value="start verification" />
-</form>
-</div>
+        <div id="verifier" style="display:none;">
+          <p class="lead text-center mb-4">Enter the Election URL to verify all ballots and election parameters:</p>
+          
+          <form onsubmit="try{load_election_and_ballots(this.election_url.value);} catch (e) {result_append('Error: ' + e);} return false;">
+            <div class="form-group mb-3">
+              <label for="election_url" class="form-label">Election URL:</label>
+              <input 
+                type="text" 
+                class="form-control election-url-input" 
+                name="election_url" 
+                id="election_url" 
+                placeholder="https://helios.example.com/elections/..." 
+                required />
+            </div>
+            <button type="submit" class="btn btn-primary btn-verify">Start Verification</button>
+          </form>
+        </div>
+      </div>
 
-<br /><br />
-<div id="results">
-</div>
-</div>
-</div>
-<div id="applet_div">
-</div>
-</body>
-</html>
+      <!-- Results Display -->
+      <div id="results" class="results-output"></div>
+    </div>
+
+    <div class="push"></div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer" id="footer">
+    <div class="footer-inner">
+      <span class="footer-text">Helios Election Verifier - Open Source Voting Verification</span>
+    </div>
+  </div>
+
