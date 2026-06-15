@@ -1,25 +1,182 @@
-<!DOCTYPE html 
-     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml"
-    dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}"
-    xml:lang="{% firstof LANGUAGE_CODE 'en' %}"
-    lang="{% firstof LANGUAGE_CODE 'en' %}">
+<!DOCTYPE html>
+<html lang="{% firstof LANGUAGE_CODE 'en' %}">
   <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %} - Helios</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" media="screen" href="/static/helios/main.css?v=20260517g" />
+    <link type="text/css" href="{{HELIOS_STATIC}}/css/ui-lightness/jquery-ui-1.8.1.custom.css" />
+    
+      /* Base body styling */
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+      }
+
+      /* Legacy button styling - upgrade old .button class */
+      .button,
+      button {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        background-color: #0066cc;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 0.95em;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-decoration: none;
+      }
+      .button:hover,
+      button:hover {
+        background-color: #0052a3;
+        text-decoration: none;
+        color: white;
+      }
+      
+      .button.small,
+      .small.button {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85em;
+      }
+      
+      .button.tiny,
+      .tiny.button {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.75em;
+      }
+
+      /* Global link styling - make them more modern */
+      a {
+        color: #0066cc;
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+      a:hover {
+        color: #0052a3;
+        text-decoration: underline;
+      }
+      
+      /* Links in tables and lists - cleaner */
+      table a,
+      li a {
+        color: #0066cc;
+      }
+      table a:hover,
+      li a:hover {
+        color: #0052a3;
+        text-decoration: underline;
+      }
+      
+      /* Styled action links in paragraphs */
+      p a[href*="@"] {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 4px;
+        color: #0066cc;
+        font-size: 0.95em;
+        transition: all 0.2s ease;
+        margin: 0.25rem 0.25rem 0.25rem 0;
+      }
+      p a[href*="@"]:hover {
+        background-color: #e9ecef;
+        border-color: #adb5bd;
+        text-decoration: none;
+      }
+      
+      /* Action links style (brackets) */
+      a[href*="@election"],
+      a[href*="@view"],
+      a[href*="@freeze"],
+      a[href*="@compute"],
+      a[href*="@combine"],
+      a[href*="@release"] {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 4px;
+        color: #0066cc;
+        font-size: 0.95em;
+        margin: 0.25rem 0 0.25rem 0;
+      }
+      a[href*="@election"]:hover,
+      a[href*="@view"]:hover,
+      a[href*="@freeze"]:hover,
+      a[href*="@compute"]:hover,
+      a[href*="@combine"]:hover,
+      a[href*="@release"]:hover {
+        background-color: #e9ecef;
+        border-color: #adb5bd;
+        text-decoration: none;
+      }
+      
+      /* Title styling */
+      h2.title,
+      h3.title {
+        font-size: 1.8em;
+        font-weight: bold;
+        margin: 1.5rem 0 1rem 0;
+        color: #222;
+        border-bottom: 2px solid #f0f0f0;
+        padding-bottom: 0.5rem;
+      }
+      
+      /* Panel styling for election boxes */
+      .panel {
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 6px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      }
+      
+      /* Better spacing */
+      p {
+        margin-bottom: 1rem;
+      }
+      
+      /* Breadcrumb navigation styling */
+      .breadcrumb-nav {
+        margin-bottom: 1.5rem;
+        padding: 0.75rem;
+        background-color: #f8f9fa;
+        border-radius: 4px;
+      }
+      .breadcrumb-nav a {
+        margin: 0 0.5rem;
+        color: #0066cc;
+      }
+      .breadcrumb-nav a:hover {
+        color: #0052a3;
+      }
+      
+      /* Small tags/badges styling */
+      small a {
+        color: #0066cc;
+        font-size: 0.85em;
+      }
+      
+      /* Container styling */
+      #content {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+    </style>
+
     {% block css %}
-      <!--
-          <link rel="stylesheet" type="text/css"  media="screen, projection" href="{{ MEDIA_URL }}combined-{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}.css" />
-      -->
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-      <link rel="stylesheet" type="text/css" media="screen" href="/static/helios/main.css?v=20260517g" />
-      <link type="text/css" href="{{HELIOS_STATIC}}/css/ui-lightness/jquery-ui-1.8.1.custom.css" />
     {% endblock %}
 
-      <script language="javascript" src="{{ HELIOS_STATIC }}/js/jquery-1.4.2.min.js"></script>
-      <script language="javascript" src="{{ HELIOS_STATIC }}/js/jquery-ui-1.8.1.custom.min.js"></script>
-    
+    <script language="javascript" src="{{ HELIOS_STATIC }}/js/jquery-1.4.2.min.js"></script>
+    <script language="javascript" src="{{ HELIOS_STATIC }}/js/jquery-ui-1.8.1.custom.min.js"></script>
+  
     {% block js %}
     {% endblock %}
 
@@ -27,15 +184,32 @@
   </head>
 
   <body>
-    <div id="content">
-        <div id="header">
-        {% block header %}
-        {% endblock %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/"><img src="/static/tinylogo.png" alt="Helios" style="height: 30px;"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Home</a>
+            </li>
+          </ul>
         </div>
-      {% block content %}{% endblock %}
-      <div id="footer">
       </div>
+    </nav>
+
+    <div id="content" class="container-fluid" style="padding: 2rem 1rem;">
+        {% block content %}{% endblock %}
     </div>
+
+    <footer class="bg-light border-top mt-5 py-4">
+      <div class="container-fluid text-center text-muted" style="font-size: 0.9em;">
+        <p>Helios Voting System - Open Source Election Verification</p>
+      </div>
+    </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>
 </html>
